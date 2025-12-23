@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Weather Map App</title>
+    <!-- Include Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <!-- Basic Styling -->
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+
+    <h1>Weather Map</h1>
+    <p class="instructions">Click on the map or search for a city to get the current weather.</p>
+
+    <!-- City Search Area -->
+    <div class="search-container">
+        <input type="text" id="city-search" placeholder="Enter city name...">
+        <button id="search-button">Search</button>
+    </div>
+    <div id="search-results"></div> <!-- Results will be populated here -->
+
+    <div class="container">
+        <!-- The map container -->
+        <div id="map"></div>
+
+        <!-- Weather results container -->
+        <div id="weather-info">
+            <h3>Weather Information</h3>
+            <p>Click the map or search for a city.</p>
+            <div class="coords">Selected Coordinates: <span id="coordsDisplay">N/A</span></div>
+        </div>
+    </div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+    <!-- App JS -->
+    <script src="index.js"></script>
+
+</body>
+
+</html>

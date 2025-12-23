@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detailed Weather</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <!-- Chart.js for data visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="details.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <a href="index.html" class="back-button">← Back to Map</a>
+        <h1>Detailed Weather Information</h1>
+        <p class="location-info" id="location-display">Loading location...</p>
+
+        <div class="map-details-area">
+            <div id="details-map"></div>
+
+            <div id="weather-details-wrapper">
+                <!-- Tabs will be inserted here by JS if data loads -->
+                <div id="weather-content">
+                    <div class="loading-message">Loading weather data...</div>
+                    <!-- Weather data cards will be populated here -->
+                </div>
+            </div>
+        </div> <!-- /map-details-area -->
+
+        <!-- Action buttons -->
+        <div class="action-buttons">
+            <button class="action-button" id="print-button"><span>🖨️</span> Print Report</button>
+            <button class="action-button" id="share-button"><span>🔗</span> Share Link</button>
+        </div>
+
+    </div> <!-- /container -->
+
+    <!-- === Map Selection Overlay === -->
+    <div id="map-overlay">
+        <div id="map-overlay-content">
+            <button id="close-map-overlay" title="Close">&times;</button>
+            <h2>Select New Location</h2>
+            <div class="overlay-search-container">
+                <input type="text" id="overlay-city-search" placeholder="Search for a city...">
+                <button id="overlay-search-button">Search</button>
+            </div>
+            <div id="overlay-search-results"></div> <!-- Search results displayed here -->
+            <div id="overlay-map-container">
+                <div id="overlay-map"></div>
+                <p class="overlay-instructions">Click on the map to select a new location.</p>
+            </div>
+        </div>
+    </div>
+    <!-- ============================= -->
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="details.js"></script>
+
+</body>
+
+</html>

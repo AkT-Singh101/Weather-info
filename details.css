@@ -1,0 +1,730 @@
+/* --- Global Styles & Variables --- */
+:root {
+    --primary-color: #3498db;
+    --text-color: #333;
+    --text-light: #666;
+    --background-color: #f4f7f9;
+    --card-bg: #ffffff;
+    --border-color: #e0e0e0;
+    --card-radius: 8px;
+    --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+    --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+html {
+    box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+body {
+    font-family: var(--font-family);
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    height: auto;
+    /* Ensure body height adjusts to content */
+    overflow-y: scroll;
+    /* Ensure vertical scrollbar is present if needed */
+    overflow-x: hidden;
+    /* Prevent horizontal scroll */
+}
+
+.container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 20px auto;
+    padding: 0 15px;
+}
+
+.back-button {
+    display: inline-block;
+    margin-top: 1em;
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: color 0.2s ease;
+}
+
+.back-button:hover {
+    color: #2980b9;
+    text-decoration: underline;
+}
+
+h1 {
+    font-size: 2rem;
+    color: var(--primary-color);
+    text-align: center;
+    margin-top: 0.5em;
+    /* Reduced margin since back button is above */
+    margin-bottom: 0.2em;
+}
+
+.location-info {
+    text-align: center;
+    color: var(--text-light);
+    margin-bottom: 2em;
+    font-size: 1.1rem;
+}
+
+/* --- Map & Details Layout Area --- */
+.map-details-area {
+    display: grid;
+    /* Define a fixed column for the map and a flexible one for details */
+    grid-template-columns: clamp(250px, 25%, 350px) 1fr;
+    /* Map width: 25% viewport, min 250px, max 350px */
+    /* Align items at the start of the grid area */
+    align-items: start;
+    gap: 25px;
+    /* Space between map and details */
+    margin-bottom: 2em;
+}
+
+/* --- Map Area --- */
+#details-map {
+    /* Map takes up the full space of its grid cell */
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    /* Make map square, height adjusts to width */
+    min-height: 250px;
+    /* Minimum height */
+    border-radius: var(--card-radius);
+    box-shadow: var(--box-shadow);
+    border: 1px solid var(--border-color);
+    background-color: #eee;
+    /* Placeholder bg */
+    /* Ensure it stays in the first grid column/row implicitly */
+    /* No float or extra margins needed */
+}
+
+/* --- Weather Details Wrapper --- */
+#weather-details-wrapper {
+    /* Weather details occupy the second grid column implicitly */
+    background-color: var(--card-bg);
+    border-radius: var(--card-radius);
+    box-shadow: var(--box-shadow);
+    padding: 20px;
+    border: 1px solid var(--border-color);
+    min-width: 0;
+    /* Prevent overflow issues in grid */
+    /* It will span vertically as needed */
+}
+
+/* --- Tab Navigation --- */
+.tabs-nav {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0 0 25px 0;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.tabs-nav li {
+    margin-right: 10px;
+}
+
+.tab-button {
+    padding: 10px 15px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-light);
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s ease-in-out;
+    margin-bottom: -2px;
+    /* Align bottom border */
+}
+
+.tab-button.active {
+    color: var(--primary-color);
+    border-bottom-color: var(--primary-color);
+}
+
+.tab-button:hover:not(.active) {
+    color: var(--text-color);
+}
+
+/* --- Tab Content --- */
+.tab-content {
+    display: none;
+    /* Hide inactive tabs */
+    height: auto;
+    /* Allow tab content to adjust height */
+    overflow: visible;
+    /* Ensure tab content doesn't clip */
+}
+
+.tab-content.active {
+    display: block;
+    /* Show active tab */
+}
+
+/* --- Card Layout --- */
+.weather-card {
+    border: 1px solid var(--border-color);
+    border-radius: var(--card-radius);
+    margin-bottom: 25px;
+    overflow: hidden;
+    /* Ensure content stays within */
+}
+
+.weather-card:last-child {
+    margin-bottom: 0;
+}
+
+.card-header {
+    background-color: #f9fafb;
+    /* Slightly different header bg */
+    padding: 12px 20px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-header h2 {
+    font-size: 1.1rem;
+    margin: 0;
+    color: var(--text-color);
+}
+
+.card-header span {
+    font-size: 0.9rem;
+    color: var(--text-light);
+}
+
+.card-content {
+    padding: 20px;
+}
+
+/* --- Current Weather Specific --- */
+.current-overview {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px dashed var(--border-color);
+}
+
+.current-icon {
+    font-size: 4rem;
+    line-height: 1;
+}
+
+.current-temp-details .temp {
+    font-size: 2.8rem;
+    font-weight: 600;
+    line-height: 1.1;
+}
+
+.current-temp-details .desc {
+    font-size: 1.2rem;
+    margin: 5px 0;
+}
+
+.current-temp-details .feels-like {
+    font-size: 1rem;
+    color: var(--text-light);
+}
+
+.details-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px 20px;
+}
+
+.data-point {
+    /* Structure handled by grid */
+}
+
+.data-label {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    margin-bottom: 3px;
+    text-transform: uppercase;
+}
+
+.data-value {
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+/* --- Hourly Forecast Specific --- */
+.hourly-scroll-wrapper {
+    margin: 15px -20px 0 -20px;
+    /* Extend scroll area slightly */
+    padding: 0 20px 15px 20px;
+    /* Padding for content */
+    overflow-x: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border-color) transparent;
+}
+
+.hourly-scroll-wrapper::-webkit-scrollbar {
+    height: 8px;
+}
+
+.hourly-scroll-wrapper::-webkit-scrollbar-thumb {
+    background-color: var(--border-color);
+    border-radius: 4px;
+}
+
+.hourly-forecast-items {
+    display: flex;
+    gap: 15px;
+    width: max-content;
+    /* Allow container to grow */
+}
+
+.hourly-item {
+    flex: 0 0 auto;
+    width: 90px;
+    padding: 15px 10px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--card-radius);
+    text-align: center;
+    background-color: #f9fafb;
+    transition: background-color 0.2s ease;
+}
+
+.hourly-item:hover {
+    background-color: #f0f3f5;
+}
+
+.hourly-item .time {
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+}
+
+.hourly-item .icon {
+    font-size: 2.2rem;
+    margin-bottom: 8px;
+    line-height: 1;
+}
+
+.hourly-item .temp {
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+}
+
+.hourly-item .precip {
+    font-size: 0.9rem;
+    color: var(--primary-color);
+    line-height: 1.2;
+}
+
+/* --- Daily Forecast Specific --- */
+.daily-forecast-list {
+    /* List container, no extra styles needed */
+}
+
+.daily-card {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.daily-card:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.daily-card:first-child {
+    padding-top: 0;
+}
+
+.daily-date {
+    flex: 0 0 110px;
+    font-weight: 600;
+}
+
+.daily-icon {
+    flex: 0 0 60px;
+    font-size: 2.2rem;
+    text-align: center;
+    line-height: 1;
+}
+
+.daily-temp {
+    flex: 0 0 90px;
+    text-align: right;
+}
+
+.daily-temp .high {
+    display: block;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.daily-temp .low {
+    display: block;
+    color: var(--text-light);
+    font-size: 1rem;
+}
+
+.daily-desc {
+    flex: 1 1 auto;
+    font-size: 1rem;
+    color: var(--text-light);
+    text-align: left;
+    padding-left: 15px;
+}
+
+/* --- Chart Container --- */
+.chart-container {
+    width: 100%;
+    height: 220px;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px dashed var(--border-color);
+}
+
+/* --- Action Buttons --- */
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 2.5em 0 1em 0;
+}
+
+.action-button {
+    background-color: white;
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    padding: 8px 18px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.action-button:hover {
+    background-color: #f0f7ff;
+    border-color: #3b82f6;
+    color: #3b82f6;
+}
+
+.action-button span {
+    font-size: 1.1em;
+}
+
+/* --- Loading/Error Messages --- */
+.loading-message,
+.error-message {
+    text-align: center;
+    padding: 30px 20px;
+    font-size: 1.1rem;
+    color: var(--text-light);
+}
+
+.error-message {
+    color: #d9534f;
+    font-weight: 500;
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 768px) {
+    .map-details-area {
+        display: block;
+        /* Stack map and details vertically */
+    }
+
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    #details-map {
+        /* Remove styles related to float/previous layout */
+        /* float: none; REMOVED */
+        /* width: 100%; REMOVED - Handled by parent's display: block */
+        /* max-width: 500px; REMOVED */
+        width: 90%;
+        /* Make map slightly less than full width when stacked */
+        max-width: 400px;
+        /* Limit maximum width */
+        height: auto;
+        /* Let aspect-ratio control height */
+        aspect-ratio: 1 / 1;
+        /* Maintain square shape */
+        margin: 0 auto 2em auto;
+        /* Center map horizontally */
+    }
+
+    .current-overview {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .current-icon {
+        font-size: 3.5rem;
+    }
+
+    .current-temp-details .temp {
+        font-size: 2.5rem;
+    }
+
+    .details-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 10px 15px;
+    }
+
+    .daily-card {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .daily-date {
+        flex-basis: 100%;
+    }
+
+    .daily-icon {
+        flex-basis: 50px;
+    }
+
+    .daily-temp {
+        flex-basis: 80px;
+        text-align: left;
+    }
+
+    .daily-desc {
+        flex-basis: calc(100% - 150px);
+        padding-left: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        width: 95%;
+        padding: 0 10px;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    .location-info {
+        font-size: 1rem;
+    }
+
+    #details-map {
+        height: 250px;
+    }
+
+    #weather-details-wrapper {
+        padding: 15px;
+    }
+
+    .tabs-nav {
+        margin-bottom: 20px;
+    }
+
+    .tab-button {
+        padding: 8px 10px;
+        font-size: 0.9rem;
+    }
+
+    .card-header {
+        padding: 10px 15px;
+    }
+
+    .card-content {
+        padding: 15px;
+    }
+
+    .details-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+
+    .data-value {
+        font-size: 1rem;
+    }
+
+    .hourly-item {
+        width: 80px;
+        padding: 12px 8px;
+    }
+
+    .daily-desc {
+        flex-basis: 100%;
+        margin-top: 5px;
+    }
+
+    .chart-container {
+        height: 180px;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+    }
+
+    .action-button {
+        width: 80%;
+        text-align: center;
+        justify-content: center;
+    }
+}
+
+/* --- Map Overlay Styles --- */
+#map-overlay {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    /* Semi-transparent background */
+    z-index: 1000;
+    /* Ensure it's on top */
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+#map-overlay.active {
+    display: flex;
+    /* Show overlay */
+}
+
+#map-overlay-content {
+    background-color: var(--card-bg);
+    padding: 30px;
+    border-radius: var(--card-radius);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    width: 90%;
+    max-width: 900px;
+    /* Limit overlay width */
+    max-height: 90vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+#close-map-overlay {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--text-light);
+    cursor: pointer;
+    line-height: 1;
+}
+
+#close-map-overlay:hover {
+    color: var(--text-color);
+}
+
+#map-overlay-content h2 {
+    margin-top: 0;
+    margin-bottom: 1em;
+    color: var(--primary-color);
+    text-align: center;
+}
+
+.overlay-search-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+#overlay-city-search {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 0.95rem;
+}
+
+#overlay-search-button {
+    padding: 10px 15px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#overlay-search-results {
+    max-height: 150px;
+    overflow-y: auto;
+    border: 1px solid var(--border-color);
+    margin-bottom: 15px;
+    border-radius: 4px;
+}
+
+#overlay-search-results ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#overlay-search-results li {
+    padding: 8px 12px;
+    cursor: pointer;
+    border-bottom: 1px solid var(--border-color);
+}
+
+#overlay-search-results li:last-child {
+    border-bottom: none;
+}
+
+#overlay-search-results li:hover {
+    background-color: #f0f3f5;
+}
+
+#overlay-search-results li span {
+    font-size: 0.85em;
+    color: var(--text-light);
+}
+
+#overlay-map-container {
+    flex-grow: 1;
+    /* Take remaining vertical space */
+    min-height: 300px;
+    /* Ensure minimum map height */
+    position: relative;
+    /* For instructions positioning? */
+}
+
+#overlay-map {
+    width: 100%;
+    height: 100%;
+    min-height: 300px;
+    /* Add explicit min-height to map div too */
+    border: 1px solid var(--border-color);
+    border-radius: var(--card-radius);
+}
+
+.overlay-instructions {
+    font-size: 0.9em;
+    color: var(--text-light);
+    text-align: center;
+    margin-top: 10px;
+}
