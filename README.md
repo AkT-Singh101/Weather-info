@@ -1,48 +1,39 @@
-# Weather Information App
+# Weather Map App
 
-A simple Java web application using Servlets and JSP to fetch and display current weather information from the Open-Meteo API.
+A responsive and interactive weather application built using **HTML5, CSS3, and Vanilla JavaScript**. This application uses **Leaflet.js** for interactive maps and the **Open-Meteo API** to fetch real-time weather data.
 
-## Prerequisites
+## Features
 
-*   Java Development Kit (JDK) 11 or later
-*   Apache Maven
-*   A Servlet Container (like Apache Tomcat 10.x or later, compatible with Jakarta EE 9+)
+-   **Interactive Map**: Navigate around the world using Leaflet.js.
+-   **Real-time Weather**: Click anywhere on the map to get current weather data.
+-   **City Search**: Search for cities to quickly view their weather conditions.
+-   **Detailed Information**: View temperature, humidity, wind speed, and more.
+-   **Responsive Design**: optimized for detailed viewing on various devices.
 
 ## Technology Stack
 
-*   Java 11
-*   Jakarta Servlet 5.0
-*   Jakarta Server Pages (JSP) 3.0 / JSTL 2.0
-*   Open-Meteo API (https://open-meteo.com/)
-*   Jackson Databind (for JSON parsing)
-*   Maven (for build and dependency management)
+-   **HTML5**: Structure and markup.
+-   **CSS3**: Styling and layout.
+-   **JavaScript (ES6+)**: Application logic and API integration.
+-   **Leaflet.js**: Open-source JavaScript library for mobile-friendly interactive maps.
+-   **Open-Meteo API**: Free Weather API for non-commercial use.
+-   **OpenStreetMap**: Map tiles.
 
-## Building the Application
+## Installation & Usage
 
-1.  Clone the repository or place the source files in the correct directory structure.
-2.  Navigate to the project's root directory (where `pom.xml` is located) in your terminal.
-3.  Compile the code (packaging is optional if only running embedded):
+Since this is a client-side web application, no backend server (like Tomcat or Node.js) is required for core functionality, though running it through a local server is recommended to avoid CORS issues with some browsers.
 
-    ```bash
-    mvn clean compile
-    # Or package if you still want the WAR file:
-    # mvn clean package
-    ```
+1.  **Clone or Download** the repository.
+2.  **Open** the project folder.
+3.  **Run** the application:
+    -   Simply open `index.html` in your web browser.
+    -   OR use a local development server (e.g., Live Server in VS Code, `python -m http.server`, etc.).
 
-## Running the Application (Embedded Tomcat 9 via Maven)
+## Project Structure
 
-1.  Ensure you have built the application (at least compiled it).
-2.  Run the application using the Cargo Maven plugin:
-
-    ```bash
-    mvn cargo:run
-    ```
-
-3.  Maven will download dependencies (if needed), start an embedded Tomcat 9 server, and deploy the application.
-4.  Access the application in your web browser at:
-    `http://localhost:8080/` (The plugin is configured to deploy to the root context '/').
-5.  To stop the server, press `Ctrl+C` in the terminal where you ran the command.
-
-## Usage
-
-1.  The application will load the `
+-   `index.html`: Main entry point for the map view.
+-   `index.css`: Styles for the main map view.
+-   `index.js`: Logic for map interaction and weather fetching.
+-   `details.html`: Detailed view for specific weather data.
+-   `details.css`: Styles for the details page.
+-   `details.js`: Logic for the details page.
